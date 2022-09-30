@@ -1,0 +1,47 @@
+org: abdelrahman0sama
+app: serverless-training-v1
+service: serverless-training-v1
+frameworkVersion: "3"
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+  httpApi:
+    cors: true
+
+package: 
+  patterns: 
+    - './models/user.js'
+    - './db/mongoose.js'
+
+functions:
+  	
+  createCustomer:
+    handler: handler.createCustomer
+    events:
+      - httpApi:
+          path: /user
+          method: post
+
+  getCustomer:
+    handler: handler.getCustomer
+    events:
+      - httpApi:
+          path: /user/{id}
+          method: get
+
+  updateCustomer:
+    handler: handler.updateCustomer
+    events:
+      - httpApi:
+          path: /user/{id}
+          method: put
+
+  deleteCustomer:
+    handler: handler.deleteCustomer
+    events:
+      - httpApi:
+          path: /user/{id}
+          method: delete
